@@ -1,4 +1,4 @@
-# Icon Library Web App
+# Sarvārth Icon Library Web App
 
 A web application to browse, search, and download icons from a comprehensive icon library. The application provides a user-friendly interface for exploring icons across different categories and downloading them in both PNG and SVG formats.
 
