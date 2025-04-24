@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import IconGrid from '@/components/IconGrid';
-import Footer from '@/components/Footer';
 import { debounce, prefetchCriticalResources } from '@/utils/optimize';
 
 export default function Home() {
@@ -146,7 +145,6 @@ export default function Home() {
       </Head>
 
       <main className="container mx-auto px-4 py-8 flex-grow">
-        <h1 className="text-3xl font-heading font-semibold text-center mb-4">Sarvārth Icon Library</h1>
         <p className="text-center text-sm text-gray-500 mb-8">
           Created with ❤️ by{' '}
           <a 
@@ -326,8 +324,6 @@ export default function Home() {
           </>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 } 

@@ -42,10 +42,10 @@ export default function App({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
         <meta name="theme-color" content="#FF5350" />
-        <meta name="description" content="Browse, search, and download icons from a comprehensive icon library" />
+        <meta name="description" content="Browse, search, and download icons from the comprehensive Sarvārth Icon Library" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Icon Library" />
+        <meta name="apple-mobile-web-app-title" content="Sarvārth Icon Library" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/app/apple-icon-180.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icons/app/favicon-32x32.png" />
