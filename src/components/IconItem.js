@@ -44,13 +44,13 @@ export default function IconItem({ icon }) {
     <>
       <div 
         ref={iconRef}
-        className="bg-white rounded-lg p-4 shadow hover:shadow-md transition-shadow cursor-pointer flex flex-col items-center"
+        className="bg-white rounded-lg p-2 xs:p-3 sm:p-4 shadow hover:shadow-md transition-shadow cursor-pointer flex flex-col items-center aspect-square"
         onClick={() => setIsPreviewOpen(true)}
       >
-        <div className="h-16 w-16 relative flex items-center justify-center">
+        <div className="h-10 xs:h-12 sm:h-14 md:h-16 w-10 xs:w-12 sm:w-14 md:w-16 relative flex items-center justify-center">
           {/* Show loading placeholder until image is ready */}
           {(!isVisible || !isImageLoaded) && (
-            <div className="h-8 w-8 bg-gray-200 rounded-full animate-pulse"></div>
+            <div className="h-6 w-6 xs:h-8 xs:w-8 bg-gray-200 rounded-full animate-pulse"></div>
           )}
           
           {/* Only load the image when the component is visible */}
@@ -64,12 +64,12 @@ export default function IconItem({ icon }) {
             />
           )}
         </div>
-        <div className="mt-2 text-center">
-          <p className="text-sm font-medium text-gray-900 truncate">
+        <div className="mt-1 xs:mt-2 text-center w-full">
+          <p className="text-xs xs:text-sm font-medium text-gray-900 truncate">
             {icon.displayName || icon.name}
           </p>
           <div className="flex flex-col">
-            <p className="text-xs text-gray-500 capitalize">{icon.category}</p>
+            <p className="text-xs text-gray-500 capitalize truncate">{icon.category}</p>
             {icon.subcategory && (
               <p className="text-xs text-gray-400 truncate">
                 {icon.subcategory.split('/').pop()}

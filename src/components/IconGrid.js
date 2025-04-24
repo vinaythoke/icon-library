@@ -51,7 +51,6 @@ export default function IconGrid({ icons }) {
   useEffect(() => {
     // If the container is already visible, update visible icons immediately
     if (containerRef && observer) {
-      const entry = { isIntersecting: true };
       observer.disconnect();
       observer.observe(containerRef);
     } else {
@@ -60,16 +59,16 @@ export default function IconGrid({ icons }) {
   }, [icons]);
 
   return (
-    <div ref={setContainerRef}>
+    <div ref={setContainerRef} className="w-full px-2 sm:px-4">
       {icons.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-responsive xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-responsive-md lg:grid-cols-responsive-lg xl:grid-cols-6 gap-3 xs:gap-4 md:gap-6">
           {visibleIcons.map(icon => (
             <IconItem key={icon.id} icon={icon} />
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-white rounded-lg shadow">
-          <p className="text-gray-500">No icons found. Try a different category or search term.</p>
+        <div className="text-center py-6 sm:py-12 bg-white rounded-lg shadow mx-auto max-w-md">
+          <p className="text-gray-500 text-sm sm:text-base">No icons found. Try a different category or search term.</p>
         </div>
       )}
     </div>

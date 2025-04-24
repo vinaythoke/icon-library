@@ -1,5 +1,5 @@
 {
-  "name": "icon-library-app",
+  "name": "sarvarth-icon-library",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,14 +10,16 @@
     "generate-metadata": "node scripts/generate-metadata.js",
     "generate-aliases": "node scripts/generate-icon-aliases.js",
     "generate-all": "npm run generate-metadata && npm run generate-aliases",
-    "refresh": "node scripts/refresh.js"
+    "refresh": "node scripts/refresh.js",
+    "generate-pwa-icons": "node scripts/create-pwa-icons.js"
   },
   "dependencies": {
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
-    "classnames": "^2.3.2"
+    "classnames": "^2.3.2",
+    "next-pwa": "^5.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
