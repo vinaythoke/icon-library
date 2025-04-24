@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font configuration */
+:root {
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* Base font settings */
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 600; /* Semibold weight for headings */
+}
+
+/* Performance optimizations */
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+} 

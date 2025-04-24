@@ -1,0 +1,123 @@
+# Icon Library Web Application - Product Requirements Document
+
+## Overview
+A web application to browse, search, and download icons from a comprehensive icon library. The application provides a user-friendly interface for exploring icons across different categories and downloading them in both PNG and SVG formats.
+
+## User Requirements
+1. Browse icons by categories (arrows, commerce, culture, education, entertainment, essentials, office, social, technology, tools, travel) and subcategories
+2. Search icons by filename, category, subcategory, and aliases
+3. Search icons by auto-generated keywords based on filenames
+4. Search icons using intelligent score-based relevance ranking
+5. Browse icons with efficient pagination
+6. Sort icons by name, category, or date added
+7. Preview icons in both PNG and SVG formats
+8. Preview SVG icons in different brand colors before downloading
+9. Download icons in PNG format with options for different sizes (regular, @2x, @3x)
+10. Download SVG icons in the selected brand color
+11. Download larger-sized SVG icons (2x original size)
+
+## Features
+### Icon Browsing
+- Display icons in a responsive grid layout
+- Organize icons by categories and subcategories
+- Show icon name and category information
+- Implement pagination with intuitive controls (48 icons per page by default)
+- Sort icons by name (A-Z, Z-A), category, or date added
+
+### Search Functionality
+- Full-text search across icon filenames
+- Score-based relevance search algorithm for better results
+- Keyword-based search using auto-generated tags from filenames
+- Enhanced search with custom icon aliases for improved discoverability
+- Filter search results by category and subcategory
+- Real-time search results as users type (with debouncing)
+
+### Icon Preview
+- Click/tap on icon to display larger preview
+- Show both PNG and SVG versions in preview mode
+- Preview SVG icons in different brand colors (Sarvārth Red, Sarvārth Blue, Sarvārth Grey)
+- Display all available PNG sizes
+- Show file size information
+- Larger icon preview for better visibility
+
+### Download Options
+- One-click download for individual icons
+- Option to select format (PNG or SVG)
+- Size selection for PNG icons (regular, @2x, @3x)
+- Color selection for SVG icons (Default, Sarvārth Red, Sarvārth Blue, Sarvārth Grey)
+- Download SVG icons at 2x the original size
+- Download button for each format/size
+
+## Technical Requirements
+### Frontend
+- Next.js for server-side rendering and static generation
+- React for UI components
+- TailwindCSS for styling
+- Responsive design for mobile, tablet, and desktop
+- Intersection Observer API for lazy loading images
+- Real-time SVG color previewing in the UI
+
+### Backend
+- Next.js API routes for search functionality with pagination
+- API endpoint for SVG color and size transformations
+- File system operations for accessing icon files
+- Metadata generation for icons
+- Serving files for download
+
+### Data Management
+- Generate and store icon metadata (name, category, subcategory, keywords, file paths)
+- Auto-generate keywords from filenames (e.g., "arrow-up" → ["arrow", "up", "direction"])
+- Generate and store custom aliases for icons to improve search functionality
+- Create relationships between PNG and SVG versions of the same icon
+
+### Performance
+- Optimize image loading with lazy loading for both grid view and individual icons
+- Implement pagination to handle large sets of icons (2,445+ icons)
+- Only render icons that are visible within the viewport
+- Implement proper caching strategies
+- Minimize bundle size
+- Optimize search algorithm with score-based relevance ranking
+- Debounce search input to prevent excessive API calls
+
+## Implementation Plan
+1. Set up Next.js project structure
+2. Create icon metadata generator script
+3. Create icon aliases generator script for enhanced search
+4. Develop core UI components with lazy loading
+5. Implement pagination for browsing large icon sets
+6. Implement advanced search functionality with relevance scoring
+7. Develop preview and download features
+8. Implement color customization for SVG icons
+9. Implement size customization for downloaded icons
+10. Test and optimize performance
+11. Deploy to hosting platform
+
+## Implemented Enhancements
+- Intelligent score-based search algorithm
+- Customizable icon aliases for better search results
+- Pagination with intuitive controls
+- Lazy loading for improved performance
+- Intersection Observer API integration for efficient rendering
+- Sorting options for better browsing experience
+- Optimized API endpoints with pagination support
+- Debounced search for better user experience
+- SVG icon color customization with brand colors
+- Larger icon previews for better visibility
+- Double-sized SVG downloads
+- Real-time color preview in the icon detail view
+
+## Brand Colors
+The application provides the following predefined brand colors for SVG icons:
+- Sarvārth Red: #FF5350
+- Sarvārth Blue: #45D1F4
+- Sarvārth Grey: #808080
+
+## Future Enhancements
+- User collections (save favorite icons)
+- Custom color picker for more color options
+- Bulk download options
+- Icon pack downloads by category
+- Admin interface for adding new icons
+- Search history tracking
+- Recently viewed icons
+- Advanced filtering options 
