@@ -249,35 +249,25 @@ export default function IconPreview({ icon, onClose }) {
       // Fallback to API method if direct approach fails
       const response = await fetch('/api/download', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           iconPath: icon.svg,
           color: selectedColor,
-          forDownload: true, // Flag to tell API this is for download (no wrapper needed)
+          download: true,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to download colored SVG');
-      }
-
-      // Get the SVG content from the response
+      
+      if (!response.ok) throw new Error('Failed to download colored SVG');
+      
       const svgBlob = await response.blob();
       const url = URL.createObjectURL(svgBlob);
-
+      
       // Generate filename with color
       const filename = `${icon.name}-${selectedColor}.svg`;
-
+      
       // Trigger download
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-
+      downloadIcon(url, filename);
+      
       // Clean up the object URL
       URL.revokeObjectURL(url);
     } catch (error) {
@@ -313,44 +303,41 @@ export default function IconPreview({ icon, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 p-4 overflow-y-auto">
       <div 
         ref={modalRef}
-        className="bg-white rounded-lg shadow-xl max-w-3xl w-full mx-auto overflow-hidden"
+        className="bg-white rounded-lg shadow-xl max-w-3xl w-full mx-auto my-4 relative"
+        style={{ maxHeight: 'calc(100vh - 2rem)' }}
       >
-        <div className="flex justify-between items-center p-4 border-b">
-          <h3 className="text-lg font-medium">{icon.displayName || icon.name}</h3>
+        {/* Sticky header with close button */}
+        <div className="sticky top-0 z-10 flex justify-between items-center p-4 border-b bg-white rounded-t-lg">
+          <h3 className="text-lg font-medium truncate">{icon.displayName || icon.name}</h3>
           <button 
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-500"
+            className="text-gray-400 hover:text-gray-500 flex-shrink-0 ml-2"
+            aria-label="Close"
           >
-            <span className="sr-only">Close</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
 
-        <div className="p-6">
-          <div className="flex flex-col md:flex-row gap-8">
+        {/* Scrollable content */}
+        <div className="p-4 sm:p-6 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 8rem)' }}>
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8">
             {/* Icon preview */}
-            <div className="flex-1 flex flex-col items-center justify-center p-8 bg-gray-50 rounded-lg">
+            <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 bg-gray-50 rounded-lg">
               {/* Colored icon preview */}
-              <div className="mb-4 flex items-center justify-center" style={{ minHeight: '300px' }}>
+              <div className="mb-4 flex items-center justify-center w-full">
                 {isLoadingPreview ? (
                   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
                 ) : (
-                  <div className="icon-frame" style={{ width: '250px', height: '250px', overflow: 'hidden' }}>
+                  <div className="icon-frame w-full max-w-[200px] md:max-w-[250px] aspect-square overflow-hidden">
                     <iframe 
                       src={previewSrc} 
                       title={icon.name}
-                      style={{ 
-                        width: '100%', 
-                        height: '100%', 
-                        border: 'none',
-                        overflow: 'hidden',
-                        display: 'block'
-                      }}
+                      className="w-full h-full border-0"
                       sandbox="allow-same-origin"
                       loading="eager"
                     />
@@ -359,8 +346,8 @@ export default function IconPreview({ icon, onClose }) {
               </div>
               
               {/* Color selection buttons */}
-              <div className="flex items-center space-x-3 mt-4">
-                <div className="text-sm font-medium text-gray-700">Colors:</div>
+              <div className="flex flex-wrap justify-center gap-3 mt-4">
+                <div className="text-sm font-medium text-gray-700 w-full text-center mb-2 md:mb-0 md:w-auto">Colors:</div>
                 <button 
                   onClick={() => handleColorChange('default')}
                   className={`w-10 h-10 rounded-full border ${selectedColor === 'default' ? 'ring-2 ring-blue-500 ring-offset-2' : 'border-gray-300'}`}
@@ -400,11 +387,11 @@ export default function IconPreview({ icon, onClose }) {
             <div className="flex-1">
               <div className="mb-4">
                 <h4 className="font-medium text-gray-700 mb-1">Info</h4>
-                <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="grid grid-cols-[1fr,2fr] sm:grid-cols-2 gap-2 text-sm">
                   <div className="text-gray-500">Path:</div>
-                  <div className="capitalize">{formatPath()}</div>
+                  <div className="capitalize break-words">{formatPath()}</div>
                   <div className="text-gray-500">Filename:</div>
-                  <div>{icon.name}</div>
+                  <div className="break-words">{icon.name}</div>
                   <div className="text-gray-500">Keywords:</div>
                   <div className="text-gray-700 break-words">
                     <div className="flex flex-wrap gap-1">
@@ -475,6 +462,16 @@ export default function IconPreview({ icon, onClose }) {
               </div>
             </div>
           </div>
+        </div>
+        
+        {/* Sticky footer with close button for mobile */}
+        <div className="sticky bottom-0 bg-gray-50 p-4 border-t md:hidden rounded-b-lg">
+          <button
+            onClick={onClose}
+            className="w-full py-2 bg-blue-500 text-white rounded-md"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
